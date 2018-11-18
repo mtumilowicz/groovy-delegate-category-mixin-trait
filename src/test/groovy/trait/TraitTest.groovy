@@ -7,9 +7,19 @@ import spock.lang.Specification
  */
 class TraitTest extends Specification {
     
+    def "cormorant is flyer"() {
+        expect:
+        new Cormorant() instanceof Flyer
+    }
+
+    def "cormorant is swimmer"() {
+        expect:
+        new Cormorant() instanceof Swimmer
+    }
+    
     def "cormorant can swim"() {
         expect:
-        new Cormorant().swim() == "swim"
+        new Cormorant().swim() == "swimming"
     }
 
     def "cormorant can fly"() {
@@ -19,7 +29,7 @@ class TraitTest extends Specification {
 
     def "penguin can swim"() {
         expect:
-        new Penguin().swim() == "swim"
+        new Penguin().swim() == "swimming"
     }
 
     def "penguin CAN'T fly"() {
@@ -28,5 +38,15 @@ class TraitTest extends Specification {
         
         then:
         thrown(MissingMethodException)
+    }
+
+    def "penguin is swimmer"() {
+        expect:
+        new Penguin() instanceof Swimmer
+    }
+
+    def "penguin is not flyer"() {
+        expect:
+        !(new Penguin() instanceof Flyer)
     }
 }
