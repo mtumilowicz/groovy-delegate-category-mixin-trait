@@ -1,0 +1,15 @@
+plugins {
+    id 'groovy'
+}
+
+group 'groovy-delegate-mixin-trait'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.5.4'
+    testCompile group: 'org.spockframework', name: 'spock-core', version: '1.2-groovy-2.5'
+}
