@@ -8,7 +8,7 @@ import spock.lang.Specification
 class StringUtilsTest extends Specification {
     
     def setupSpec() {
-        String.mixin(StringUtils)
+        String.mixin StringUtils
     }
 
     def "string concat with comma"() {
