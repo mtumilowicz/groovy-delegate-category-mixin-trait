@@ -140,3 +140,25 @@ use (TripleCategory) {
     assert 9 == 3.triple()
 }
 ```
+
+## delegate
+_Reference_: http://docs.groovy-lang.org/next/html/documentation/#_class_design_annotations
+
+The `@Delegate` AST transformation aims at implementing the delegation design pattern.
+
+* useful parameters:
+    * excludes - a list of methods to be excluded from delegation
+        ```
+        class Delegating {
+            @Delegate(excludes=['task2']) Worker worker = new Worker()
+        }
+        ```
+    * includes - a list of methods to be included in delegation.
+        ```
+        class Delegating {
+            @Delegate(includes=['task1']) Worker worker = new Worker()
+        }
+        ```
+
+When the property `field` (type `X`) of class `Y` is annotated with `@Delegate`, 
+meaning that the `Y` class will delegate calls to `X` methods to the property `field`.
