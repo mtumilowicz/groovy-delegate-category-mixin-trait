@@ -3,7 +3,6 @@ Overview of delegate, mixin, category and trait in groovy.
 
 _Reference_: https://stackoverflow.com/questions/23121890/difference-between-delegate-mixin-and-traits-in-groovy     
 _Reference_: http://docs.groovy-lang.org/next/html/documentation/#_implement_delegation_pattern_using_delegate_annotation  
-_Reference_: http://docs.groovy-lang.org/next/html/documentation/#_class_design_annotations  
 _Reference_: http://docs.groovy-lang.org/next/html/documentation/#_compile_time_metaprogramming  
 
 
@@ -115,8 +114,8 @@ use(IntegerUtils) {
 #### definitions
 Applying the `@Category` annotation has the advantage of being able to use 
 instance methods without the target type as a first parameter. The target 
-type class is given as an argument to the annotation instead (
-the mixed in class can be referenced using `this`)
+type class is given as an argument to the annotation instead (the mixed 
+in class can be referenced using `this`)
 
 ### summary
 * static approach
@@ -143,6 +142,21 @@ use (TripleCategory) {
 
 ## delegate
 _Reference_: http://docs.groovy-lang.org/next/html/documentation/#_class_design_annotations
+
+### ast transformation
+Compile-time metaprogramming in Groovy allows code generation at compile-time. 
+Those transformations are altering the Abstract Syntax Tree (AST) of a program, 
+which is why in Groovy we call it AST transformations. AST transformations 
+allow you to hook into the compilation process, modify the AST and continue the 
+compilation process to generate regular bytecode. Compared to runtime metaprogramming, 
+this has the advantage of making the changes visible in the class file itself 
+(that is to say, in the bytecode).
+
+If you do it with runtime metaprogramming, the new method would only be visible from 
+Groovy. If you do the same using compile-time metaprogramming, the method would be 
+visible from Java too.
+
+### @Delegate
 
 The `@Delegate` AST transformation aims at implementing the delegation design pattern.
 
@@ -199,7 +213,7 @@ We provide examples and tests to the above mentioned features.
         "a".concatWithComma("b") == "a,b"
     }
     ```
-* trait
+* **trait**
     ```
     trait Flyer {
         def fly() {
