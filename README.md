@@ -162,3 +162,83 @@ The `@Delegate` AST transformation aims at implementing the delegation design pa
 
 When the property `field` (type `X`) of class `Y` is annotated with `@Delegate`, 
 meaning that the `Y` class will delegate calls to `X` methods to the property `field`.
+
+# project description
+We provide examples and tests to the above mentioned features.
+
+* **category** (only annotation approach)
+    ```
+    @Category(Integer)
+    class IntegerUtils {
+        boolean even() {
+            this % 2 == 0
+        }
+    }
+    ```
+    ```
+    expect:
+    use(IntegerUtils) {
+        2.even()
+    }
+    ```
+* **mixin**
+    ```
+    class StringUtils {
+        static String concatWithComma(String self, String other) {
+            self + "," + other
+        }
+    }
+    ```
+    ```
+    def setupSpec() {
+        String.mixin StringUtils
+    }
+    
+    def "string concat with comma"() {
+        expect:
+        "a".concatWithComma("b") == "a,b"
+    }
+    ```
+* trait
+    ```
+    trait Flyer {
+        def fly() {
+            "flying"
+        }
+    }
+    ```
+    ```
+    trait Swimmer {
+        def swim() {
+            "swimming"
+        }
+    }
+    ```
+    ```
+    class Cormorant implements Flyer, Swimmer
+    ```
+    ```
+    class Penguin implements Swimmer
+    ```
+    * tests in `TraitTest`
+        ```
+        expect:
+        new Cormorant() instanceof Flyer
+        new Cormorant() instanceof Swimmer
+        new Cormorant().swim() == "swimming"
+        new Cormorant().fly() == "flying"
+        ```
+        ```
+        expect:
+        new Penguin().swim() == "swimming"
+        new Penguin() instanceof Swimmer
+        !(new Penguin() instanceof Flyer)
+        ```
+        Note that:
+        ```
+        when:
+        new Penguin().fly()
+        
+        then:
+        thrown(MissingMethodException)
+        ```
