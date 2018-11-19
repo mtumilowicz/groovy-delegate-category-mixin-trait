@@ -297,5 +297,5 @@ We provide examples and tests to the above mentioned features.
     teamLeader.doTask() == "junior developer is working on the task"
     ```
     where the `SeniorDeveloper` / `JuniorDeveloper` / `Nobody` 
-    `implements Worker` interface and has appropriate methods defined
+    `implements Worker` has appropriate methods defined
     
