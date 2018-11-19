@@ -116,26 +116,26 @@ in class can be referenced using `this`)
 
 ### summary
 * static approach
-```
-class TripleCategory {
-    public static Integer triple(Integer self) {
-        3*self
+    ```
+    class TripleCategory {
+        public static Integer triple(Integer self) {
+            3*self
+        }
     }
-}
-use (TripleCategory) {
-    assert 9 == 3.triple()
-}
-```
+    use (TripleCategory) {
+        assert 9 == 3.triple()
+    }
+    ```
 * `@Category` approach
-```
-@Category(Integer)
-class TripleCategory {
-    public Integer triple() { 3*this }
-}
-use (TripleCategory) {
-    assert 9 == 3.triple()
-}
-```
+    ```
+    @Category(Integer)
+    class TripleCategory {
+        public Integer triple() { 3*this }
+    }
+    use (TripleCategory) {
+        assert 9 == 3.triple()
+    }
+    ```
 
 ## delegate
 _Reference_: http://docs.groovy-lang.org/next/html/documentation/#_class_design_annotations  
