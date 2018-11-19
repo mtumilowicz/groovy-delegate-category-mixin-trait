@@ -156,6 +156,8 @@ If you do it with runtime metaprogramming, the new method would only be visible 
 Groovy. If you do the same using compile-time metaprogramming, the method would be 
 visible from Java too.
 
+Good example of easy AST transformation is `@ToString` annotation.
+
 ### @Delegate
 
 The `@Delegate` AST transformation aims at implementing the delegation design pattern.
