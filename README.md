@@ -182,7 +182,7 @@ meaning that the `Y` class will delegate calls to `X` methods to the property `f
 # project description
 We provide examples and tests to the above mentioned features.
 
-* **category** (only annotation approach)
+* **category** (only annotation approach) - `IntegerUtilsTest`
     ```
     @Category(Integer)
     class IntegerUtils {
@@ -197,7 +197,7 @@ We provide examples and tests to the above mentioned features.
         2.even()
     }
     ```
-* **mixin**
+* **mixin** - `StringUtilsTest`
     ```
     class StringUtils {
         static String concatWithComma(String self, String other) {
@@ -215,7 +215,7 @@ We provide examples and tests to the above mentioned features.
         "a".concatWithComma("b") == "a,b"
     }
     ```
-* **trait**
+* **trait** - `TraitTest`
     ```
     trait Flyer {
         def fly() {
@@ -236,7 +236,7 @@ We provide examples and tests to the above mentioned features.
     ```
     class Penguin implements Swimmer
     ```
-    * tests in `TraitTest`
+    * tests
         ```
         expect:
         new Cormorant() instanceof Flyer
@@ -258,7 +258,7 @@ We provide examples and tests to the above mentioned features.
         then:
         thrown(MissingMethodException)
         ```
-* **delegate**
+* **delegate** - `TeamLeaderTest`
     ```
     class TeamLeader {
         
@@ -278,26 +278,27 @@ We provide examples and tests to the above mentioned features.
         def doTask()
     }
     ```
-    ```
-    given:
-    def teamLeader = new TeamLeader()
-    
-    when:
-    teamLeader.toSenior()
-    
-    then:
-    teamLeader.doTask() == "senior developer is working on the task"
-    ```
-    ```
-    given:
-    def teamLeader = new TeamLeader()
-    
-    when:
-    teamLeader.toJunior()
-    
-    then:
-    teamLeader.doTask() == "junior developer is working on the task"
-    ```
-    where the `SeniorDeveloper` / `JuniorDeveloper` / `Nobody` 
+    * tests
+        ```
+        given:
+        def teamLeader = new TeamLeader()
+        
+        when:
+        teamLeader.toSenior()
+        
+        then:
+        teamLeader.doTask() == "senior developer is working on the task"
+        ```
+        ```
+        given:
+        def teamLeader = new TeamLeader()
+        
+        when:
+        teamLeader.toJunior()
+        
+        then:
+        teamLeader.doTask() == "junior developer is working on the task"
+        ```
+        where the `SeniorDeveloper` / `JuniorDeveloper` / `Nobody` 
     `implements Worker` has appropriate methods defined
     
