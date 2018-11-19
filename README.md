@@ -50,31 +50,93 @@ which respond to A will continue responding to A even if
 mixed in.
 
 ## category
-_Reference_: http://docs.groovy-lang.org/next/html/documentation/#xform-Category
+Category classes aren’t enabled by default. To use the methods defined in 
+a category class it is necessary to apply the scoped `use` (takes the category 
+class as its first parameter and a closure code block as second parameter)
+method that is provided by the GDK and available from inside every Groovy 
+object instance. Inside the Closure access to the category methods is available.
+
+It’s also worth noting that using instance fields in a category class is 
+inherently unsafe: categories are not stateful (like traits).
+
+### static convention
 _Reference_: http://docs.groovy-lang.org/next/html/documentation/#categories
 
-Category classes aren’t enabled by default. To use the methods defined in 
-a category class it is necessary to apply the scoped use method that is 
-provided by the GDK and available from inside every Groovy object instance.
+#### example
+Example: `groovy.time.TimeCategory`
+```
+public class TimeCategory {
 
+    public static Date plus(final Date date, final BaseDuration duration) {
+        return duration.plus(date);
+    }
+    
+    ...
+}
+```
+```
+use(TimeCategory)  {
+    def someDate = new Date()       
+    println someDate + 3.months
+}
+```
+
+#### definitions
+We have two requirements that must be met by category classes for its methods 
+to be successfully added to a class inside the `use` code block:
+* method must be static
+* the first argument of the static method must define the type the method is 
+attached to once being activated while the other arguments are the normal 
+arguments the method will take as parameters
+
+Take a look at exemplary `groovy.time.TimeCategory`:
+* method `plus` is static
+* the first argument is type `Date` and on the 
+`def someDate = new Date()` we invoke method `+`
+
+### annotation base @Category
+_Reference_: http://docs.groovy-lang.org/next/html/documentation/#xform-Category
+
+#### example
+```
+@Category(Integer)
+class IntegerUtils {
+    boolean even() {
+        this % 2 == 0
+    }
+}
+```
+```
+use(IntegerUtils) {
+    2.even()
+}
+```
+
+#### definitions
+Applying the `@Category` annotation has the advantage of being able to use 
+instance methods without the target type as a first parameter. The target 
+type class is given as an argument to the annotation instead (
+the mixed in class can be referenced using `this`)
+
+### summary
+* static approach
+```
+class TripleCategory {
+    public static Integer triple(Integer self) {
+        3*self
+    }
+}
+use (TripleCategory) {
+    assert 9 == 3.triple()
+}
+```
+* `@Category` approach
 ```
 @Category(Integer)
 class TripleCategory {
     public Integer triple() { 3*this }
 }
-
 use (TripleCategory) {
     assert 9 == 3.triple()
 }
 ```
-
-Note that the mixed in class can be referenced using this instead.
-
-It’s also worth noting that using instance fields in a category class is 
-inherently unsafe: categories are not stateful (like traits).
-
-Applying the @Category annotation has the advantage of being able to use 
-instance methods without the target type as a first parameter. The target 
-type class is given as an argument to the annotation instead.
-
-`groovy.time.TimeCategory`
