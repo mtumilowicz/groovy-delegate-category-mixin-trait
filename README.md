@@ -1,10 +1,5 @@
 # groovy-delegate-mixin-trait
-Overview of delegate, mixin, category and trait in groovy.
-
-_Reference_: https://stackoverflow.com/questions/23121890/difference-between-delegate-mixin-and-traits-in-groovy     
-_Reference_: http://docs.groovy-lang.org/next/html/documentation/#_implement_delegation_pattern_using_delegate_annotation  
-_Reference_: http://docs.groovy-lang.org/next/html/documentation/#_compile_time_metaprogramming  
-
+Overview of delegate, mixin, category and trait in groovy.       
 
 # preface
 
@@ -141,9 +136,12 @@ use (TripleCategory) {
 ```
 
 ## delegate
-_Reference_: http://docs.groovy-lang.org/next/html/documentation/#_class_design_annotations
+_Reference_: http://docs.groovy-lang.org/next/html/documentation/#_class_design_annotations  
+_Reference_: http://docs.groovy-lang.org/next/html/documentation/#_implement_delegation_pattern_using_delegate_annotation
 
 ### ast transformation
+_Reference_: http://docs.groovy-lang.org/next/html/documentation/#_compile_time_metaprogramming  
+
 Compile-time metaprogramming in Groovy allows code generation at compile-time. 
 Those transformations are altering the Abstract Syntax Tree (AST) of a program, 
 which is why in Groovy we call it AST transformations. AST transformations 
@@ -258,3 +256,46 @@ We provide examples and tests to the above mentioned features.
         then:
         thrown(MissingMethodException)
         ```
+* **delegate**
+    ```
+    class TeamLeader {
+        
+        @Delegate Worker worker = new Nobody()
+        
+        void toSenior() {
+            worker = new SeniorDeveloper()
+        }
+        
+        void toJunior() {
+            worker = new JuniorDeveloper()
+        }
+    }
+    ```
+    ```
+    interface Worker {
+        def doTask()
+    }
+    ```
+    ```
+    given:
+    def teamLeader = new TeamLeader()
+    
+    when:
+    teamLeader.toSenior()
+    
+    then:
+    teamLeader.doTask() == "senior developer is working on the task"
+    ```
+    ```
+    given:
+    def teamLeader = new TeamLeader()
+    
+    when:
+    teamLeader.toJunior()
+    
+    then:
+    teamLeader.doTask() == "junior developer is working on the task"
+    ```
+    where the `SeniorDeveloper` / `JuniorDeveloper` / `Nobody` 
+    `implements Worker` interface and has appropriate methods defined
+    
