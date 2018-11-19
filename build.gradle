@@ -2,7 +2,7 @@ plugins {
     id 'groovy'
 }
 
-group 'groovy-delegate-mixin-trait'
+group 'groovy-delegate-category-mixin-trait'
 version '1.0-SNAPSHOT'
 
 repositories {
