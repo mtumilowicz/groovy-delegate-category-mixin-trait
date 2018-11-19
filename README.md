@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.com/mtumilowicz/groovy-delegate-mixin-trait.svg?branch=master)](https://travis-ci.com/mtumilowicz/groovy-delegate-mixin-trait)
 
-# groovy-delegate-mixin-trait
+# groovy-delegate-category-mixin-trait
 Overview of delegate, mixin, category and trait in groovy.       
 
 # preface
