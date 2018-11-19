@@ -12,25 +12,8 @@ _Reference_: http://docs.groovy-lang.org/next/html/documentation/#_compile_time_
 # preface
 
 ## trait
-_Reference_: http://docs.groovy-lang.org/next/html/documentation/core-traits.html
-
-Traits are a structural construct of the language which allows:
-* composition of behaviors
-* runtime implementation of interfaces
-* behavior overriding
-* compatibility with static type checking/compilation
-
 They can be seen as interfaces carrying both default 
 implementations and state. 
 
-A trait is defined using the trait keyword:
-```
-trait Swimmer {
-    def swim() {
-        "swimming"
-    }
-}
-```
-
-* Traits may declare abstract methods.
-* Traits may also define private methods.
+For more info about traits please refer my other github
+repository: https://github.com/mtumilowicz/groovy-trait
